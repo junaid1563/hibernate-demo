@@ -2,21 +2,50 @@ package org.spring.tuts.entities;
 
 import jakarta.persistence.*;
 
+import java.util.Calendar;
+import java.util.Date;
+
 @Entity(name = "employee2")
 @Table(name = "employee")
 public class Employee1 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String id;
     private String name;
     private String address;
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
 
-    public int getId() {
+    @Transient
+    private int age;
+
+    public enum Gender {
+        MALE,
+        FEMALE
+    }
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
+    public int getAge() {
+        return new Date().getYear() - dateOfBirth.getYear();
+    }
+
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -34,5 +63,24 @@ public class Employee1 {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public void setGender(Gender gender) {
+        this.gender = gender;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee1{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
+                ", age=" + getAge() +
+                '}';
     }
 }
