@@ -34,7 +34,7 @@ public class CustomPersistenceUnitInfo implements PersistenceUnitInfo {
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setUsername("root");
         dataSource.setPassword("admin");
-        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/hibernate_schema");
+        dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/hb_demo");
 //        dataSource.setDriverClassName("com.mysql.jdbc.Driver");
         return dataSource;
     }
@@ -61,7 +61,8 @@ public class CustomPersistenceUnitInfo implements PersistenceUnitInfo {
 
     @Override
     public List<String> getManagedClassNames() {
-        return List.of("org.spring.tuts.entities.Product");
+        return List.of("org.spring.tuts.entities.Product",
+                "org.spring.tuts.entities.Employee1");
     }
 
     @Override
