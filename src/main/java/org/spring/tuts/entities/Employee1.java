@@ -1,6 +1,8 @@
 package org.spring.tuts.entities;
 
 import jakarta.persistence.*;
+import org.hibernate.annotations.GenericGenerator;
+import org.spring.tuts.entities.generators.CustomUUIDGenerator;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -10,7 +12,10 @@ import java.util.Date;
 public class Employee1 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+    @GenericGenerator(name = "UUIDGenerator", type = CustomUUIDGenerator.class)
+//    @GeneratedValue(strategy = GenerationType.UUID)
+    @GeneratedValue(generator = "UUIDGenerator")
+    @Column(length = 500)
     private String id;
     private String name;
     private String address;
